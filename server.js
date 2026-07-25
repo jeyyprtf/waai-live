@@ -13,6 +13,8 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY || ''
 const WAAI_ROOT = process.env.WAAI_ROOT || join(__dirname, '../waai')
 const ELOK = '173543069352146'
 const MODEL = 'gemini-3.1-flash-live-preview'
+// voice prebuilt Gemini Live — Umbriel, Puck, Charon, Kore, Fenrir, Zephyr, Orus, Aoede, dll
+const VOICE = process.env.VOICE || 'Umbriel'
 const MAX_MEMORIES = 30
 
 // ponytail: cookie = sha256(password). 1 user, no expiry. ephemeral token Google nanti.
@@ -215,6 +217,7 @@ const server = createServer(async (req, res) => {
       // Upgrade ke ephemeral token (BidiGenerateContentConstrained) kalau nanti dibuka ke orang lain.
       return json(res, 200, {
         model: MODEL,
+        voice: VOICE,
         systemInstruction,
         mode,
         memCount,

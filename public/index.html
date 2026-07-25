@@ -815,7 +815,7 @@ function connect() {
             responseModalities: ['AUDIO'],
             speechConfig: {
               voiceConfig: {
-                prebuiltVoiceConfig: { voiceName: 'Puck' }
+                prebuiltVoiceConfig: { voiceName: session.voice || 'Umbriel' }
               }
             }
           },
