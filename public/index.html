@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FBF4F6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Stev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF4F6;
+  --bg2:#F3E4EA;
+  --card:#FFFBFC;
+  --ink:#3D2A32;
+  --soft:#8A6B76;
+  --line:#EED9E1;
+  --rose:#E28BA8;
+  --rose2:#C45C7A;
+  --blush:#F7C9D8;
+  --lilac:#C9B4E0;
+  --mint:#B8D4C8;
+  --danger:#D45B6A;
+  --shadow:0 20px 50px rgba(196,92,122,.12);
+  --radius:28px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:"DM Sans",system-ui,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(900px 520px at 10% -10%,rgba(226,139,168,.28),transparent 55%),
+    radial-gradient(700px 480px at 100% 0%,rgba(201,180,224,.22),transparent 50%),
+    radial-gradient(600px 400px at 50% 110%,rgba(184,212,200,.18),transparent 50%),
+    var(--bg);
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:max(16px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
+  -webkit-font-smoothing:antialiased;
+}
+.app{
+  width:min(420px,100%);
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.top{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:4px 2px 8px;
+}
+.brand{
+  font-family:"Fraunces",Georgia,serif;
+  font-weight:600;
+  font-size:22px;
+  letter-spacing:-.02em;
+  color:var(--ink);
+}
+.brand span{color:var(--rose2);font-weight:500}
+.pill{
+  font-size:12px;
+  color:var(--soft);
+  background:rgba(255,255,255,.7);
+  border:1px solid var(--line);
+  padding:6px 12px;
+  border-radius:99px;
+  backdrop-filter:blur(8px);
+}
+.hero{
+  flex:1;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  padding:12px 0 8px;
+}
+.orb-wrap{
+  position:relative;
+  width:min(280px,72vw);
+  height:min(280px,72vw);
+  display:grid;
+  place-items:center;
+}
+.orb-wrap canvas{
+  width:100%;
+  height:100%;
+  display:block;
+  filter:drop-shadow(0 18px 40px rgba(196,92,122,.22));
+}
+
+.hello{
+  text-align:center;
+  max-width:300px;
+}
+.hello h1{
+  font-family:"Fraunces",Georgia,serif;
+  font-weight:600;
+  font-size:clamp(22px,5.5vw,28px);
+  letter-spacing:-.02em;
+  line-height:1.25;
+  margin-bottom:8px;
+}
+.hello p{
+  font-size:14.5px;
+  color:var(--soft);
+  line-height:1.5;
+}
+.status{
+  font-size:14px;
+  color:var(--soft);
+  min-height:22px;
+  text-align:center;
+  transition:color .2s;
+}
+.status.live{color:var(--rose2);font-weight:500}
+.status.err{color:var(--danger)}
+
+.captions{
+  width:100%;
+  min-height:72px;
+  max-height:140px;
+  overflow:auto;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding:4px 2px;
+  mask-image:linear-gradient(to bottom,transparent,#000 12px,#000 calc(100% - 8px),transparent);
+}
+.cap{
+  align-self:flex-start;
+  max-width:88%;
+  padding:10px 14px;
+  border-radius:18px 18px 18px 6px;
+  background:var(--card);
+  border:1px solid var(--line);
+  font-size:13.5px;
+  line-height:1.45;
+  color:var(--ink);
+  box-shadow:0 4px 16px rgba(61,42,50,.04);
+  animation:pop .25s ease;
+}
+.cap.stev{
+  align-self:flex-end;
+  border-radius:18px 18px 6px 18px;
+  background:linear-gradient(145deg,#FBE4EC,#F3D4E8);
+  border-color:transparent;
+}
+.cap .who{
+  display:block;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--soft);
+  margin-bottom:3px;
+}
+.cap.stev .who{color:var(--rose2)}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.controls{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  padding-top:8px;
+}
+.btn-call{
+  width:76px;height:76px;
+  border:0;border-radius:50%;
+  cursor:pointer;
+  display:grid;place-items:center;
+  background:linear-gradient(160deg,var(--rose),var(--rose2));
+  color:#fff;
+  box-shadow:0 12px 32px rgba(196,92,122,.35);
+  transition:transform .12s, box-shadow .2s, background .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn-call:active{transform:scale(.95)}
+.btn-call:disabled{opacity:.55;cursor:wait}
+.btn-call.on{
+  background:linear-gradient(160deg,#E88A94,var(--danger));
+  box-shadow:0 12px 32px rgba(212,91,106,.32);
+}
+.btn-call svg{width:28px;height:28px;fill:currentColor}
+.btn-label{
+  font-size:13px;
+  font-weight:500;
+  color:var(--soft);
+  letter-spacing:.02em;
+}
+.tip{
+  font-size:12.5px;
+  color:var(--soft);
+  text-align:center;
+  opacity:.85;
+  max-width:280px;
+  line-height:1.45;
+}
+.tip strong{color:var(--ink);font-weight:500}
+.foot{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  margin-top:18px;
+  padding-top:8px;
+}
+.foot a,.foot button{
+  background:none;border:0;
+  font:inherit;font-size:12.5px;
+  color:var(--soft);
+  cursor:pointer;
+  text-decoration:none;
+  padding:6px 4px;
+}
+.foot a:hover,.foot button:hover{color:var(--rose2)}
+.toast{
+  position:fixed;
+  left:50%;bottom:max(28px,env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(20px);
+  background:var(--ink);
+  color:#fff;
+  font-size:13px;
+  padding:12px 18px;
+  border-radius:99px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s, transform .25s;
+  z-index:20;
+  max-width:90vw;
+  text-align:center;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.debug{
+  display:none;
+  width:100%;
+  margin-top:12px;
+  max-height:160px;
+  overflow:auto;
+  font-family:ui-monospace,monospace;
+  font-size:10px;
+  color:var(--soft);
+  background:rgba(255,255,255,.5);
+  border:1px dashed var(--line);
+  border-radius:12px;
+  padding:10px;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.debug.on{display:block}
+.debug .err{color:var(--danger)}
+</style>
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="top">
+      <div class="brand">stev <span>· live</span></div>
+      <div class="pill" id="pill">lagi nyiapin…</div>
+    </header>
+
+    <main class="hero">
+      <div class="orb-wrap" id="orbWrap">
+        <canvas id="viz" width="560" height="560" aria-hidden="true"></canvas>
+      </div>
+
+      <div class="hello" id="hello">
+        <h1>Hai ell ✨</h1>
+        <p>Stev di sini. Tekan tombol di bawah kalau mau ngobrol atau curhat bareng.</p>
+      </div>
+
+      <div class="status" id="status">siap kapan aja</div>
+      <div class="captions" id="captions" aria-live="polite"></div>
+    </main>
+
+    <div class="controls">
+      <button class="btn-call" id="btn" type="button" aria-label="Mulai ngobrol">
+        <!-- phone -->
+        <svg id="iconCall" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .7-.2 1L6.6 10.8z"/></svg>
+        <!-- hangup -->
+        <svg id="iconEnd" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path d="M12 9c-4.3 0-8.2 1.4-10.7 3.7-.4.4-.5 1-.1 1.4l1.5 1.5c.4.4 1 .4 1.4.1C5.9 14.2 8.8 13.3 12 13.3s6.1.9 7.9 2.4c.4.3 1 .3 1.4-.1l1.5-1.5c.4-.4.3-1-.1-1.4C20.2 10.4 16.3 9 12 9z"/></svg>
+      </button>
+      <div class="btn-label" id="btnLabel">mulai ngobrol</div>
+      <p class="tip" id="tip">lebih enak pakai <strong>headphone</strong> biar suaranya jelas 🎧</p>
+    </div>
+
+    <footer class="foot">
+      <button type="button" id="dbgToggle" title="log teknis">detail</button>
+      <a href="/logout">keluar</a>
+    </footer>
+
+    <div class="debug" id="log"></div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+<script>
+const IN_RATE = 16000
+const OUT_RATE = 24000
+const FADE_MS = 180
+
+const $ = id => document.getElementById(id)
+const statusEl = $('status'), orbWrap = $('orbWrap'), viz = $('viz')
+const btn = $('btn'), btnLabel = $('btnLabel'), pill = $('pill')
+const captions = $('captions'), logEl = $('log'), toastEl = $('toast')
+const hello = $('hello'), tip = $('tip')
+const iconCall = $('iconCall'), iconEnd = $('iconEnd')
+
+let session = null
+let ws = null
+let mediaStream = null
+let captureCtx = null
+let playCtx = null
+let masterGain = null
+let processor = null
+let nextPlayTime = 0
+let active = false
+let setupDone = false
+let chunksSent = 0
+let activeSources = []
+let fading = false
+let lastUserCap = ''
+let lastStevCap = ''
+
+// --- visualizer state ---
+let micAnalyser = null
+let micData = null
+let micLevel = 0
+let stevLevel = 0 // di-set tiap chunk audio stev diputar
+let stevLevelDecay = 0
+let vizRaf = 0
+let vizPhase = 0
+const vizCtx = viz.getContext('2d')
+
+function log(cls, text) {
+  // teknis — cuma di panel detail
+  const d = document.createElement('div')
+  if (cls === 'err') d.className = 'err'
+  d.textContent = text
+  logEl.appendChild(d)
+  logEl.scrollTop = logEl.scrollHeight
+}
+
+function setStatus(t, kind = '') {
+  statusEl.textContent = t
+  statusEl.className = 'status' + (kind ? ' ' + kind : '')
+}
+
+function toast(msg, ms = 2800) {
+  toastEl.textContent = msg
+  toastEl.classList.add('show')
+  clearTimeout(toast._t)
+  toast._t = setTimeout(() => toastEl.classList.remove('show'), ms)
+}
+
+function friendlyError(raw) {
+  const s = String(raw || '')
+  if (/permission|NotAllowed|getUserMedia/i.test(s)) return 'izin mikrofonnya belum dibuka nih. coba cek di pengaturan browser ya.'
+  if (/timeout|setupComplete/i.test(s)) return 'koneksinya agak lama. coba lagi sebentar ya.'
+  if (/1011|Internal error/i.test(s)) return 'servernya lagi rewel. coba call lagi ya.'
+  if (/1007|Invalid JSON|Unknown name/i.test(s)) return 'ada yang kurang cocok di koneksi. bilang Juan ya.'
+  if (/unauthorized|401/i.test(s)) return 'sesinya habis. coba masuk lagi.'
+  if (/API key|GEMINI/i.test(s)) return 'kunci API belum siap. bilang Juan ya.'
+  if (/websocket|ws closed/i.test(s)) return 'koneksi terputus. coba tekan lagi ya.'
+  return 'hmm, ada gangguan. coba lagi ya.'
+}
+
+function addCaption(who, text) {
+  const t = (text || '').trim()
+  if (!t) return
+  // merge partial transcripts
+  if (who === 'ell') {
+    if (t === lastUserCap || lastUserCap.startsWith(t)) return
+    if (t.startsWith(lastUserCap) && lastUserCap) {
+      const last = captions.querySelector('.cap.ell:last-child .txt')
+      if (last) { last.textContent = t; lastUserCap = t; return }
+    }
+    lastUserCap = t
+  } else {
+    if (t === lastStevCap || lastStevCap.startsWith(t)) return
+    if (t.startsWith(lastStevCap) && lastStevCap) {
+      const last = captions.querySelector('.cap.stev:last-child .txt')
+      if (last) { last.textContent = t; lastStevCap = t; return }
+    }
+    lastStevCap = t
+  }
+  const d = document.createElement('div')
+  d.className = 'cap ' + (who === 'stev' ? 'stev' : 'ell')
+  d.innerHTML = `<span class="who">${who === 'stev' ? 'stev' : 'kamu'}</span><span class="txt"></span>`
+  d.querySelector('.txt').textContent = t
+  captions.appendChild(d)
+  // keep last ~8
+  while (captions.children.length > 8) captions.removeChild(captions.firstChild)
+  captions.scrollTop = captions.scrollHeight
+}
+
+async function loadSession() {
+  const r = await fetch('/api/session')
+  if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.statusText)
+  session = await r.json()
+  pill.textContent = session.memCount ? `kenal kamu · ${session.memCount} kenangan` : 'siap kenalan'
+  log('sys', `brain ok · mem ${session.memCount} · mode ${session.mode}`)
+}
+
+function ensurePlayCtx() {
+  if (!playCtx) {
+    playCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: OUT_RATE })
+    masterGain = playCtx.createGain()
+    masterGain.gain.value = 1
+    masterGain.connect(playCtx.destination)
+  }
+  if (playCtx.state === 'suspended') playCtx.resume()
+  return playCtx
+}
+
+function rmsFromF32(f32) {
+  let s = 0
+  const step = Math.max(1, (f32.length / 256) | 0)
+  let n = 0
+  for (let i = 0; i < f32.length; i += step) { s += f32[i] * f32[i]; n++ }
+  return Math.sqrt(s / (n || 1))
+}
+
+function playPcmBase64(b64) {
+  try {
+    if (fading) return
+    const ctx = ensurePlayCtx()
+    const bin = atob(b64)
+    const bytes = new Uint8Array(bin.length)
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i)
+    const samples = bytes.length >> 1
+    const f32 = new Float32Array(samples)
+    const view = new DataView(bytes.buffer)
+    for (let i = 0; i < samples; i++) f32[i] = view.getInt16(i * 2, true) / 32768
+    // level stev buat visualizer
+    const r = rmsFromF32(f32)
+    stevLevel = Math.min(1, stevLevel * 0.4 + r * 4.5)
+    stevLevelDecay = Math.max(stevLevelDecay, stevLevel)
+
+    const buf = ctx.createBuffer(1, samples, OUT_RATE)
+    buf.copyToChannel(f32, 0)
+    const src = ctx.createBufferSource()
+    src.buffer = buf
+    src.connect(masterGain)
+    const now = ctx.currentTime
+    if (nextPlayTime < now + 0.05) nextPlayTime = now + 0.05
+    src.start(nextPlayTime)
+    nextPlayTime += buf.duration
+    activeSources.push(src)
+    src.onended = () => {
+      activeSources = activeSources.filter(s => s !== src)
+    }
+  } catch (e) {
+    log('err', 'play: ' + e.message)
+  }
+}
+
+function fadeAndStop(ms = FADE_MS) {
+  if (!playCtx || !masterGain) {
+    nextPlayTime = 0
+    activeSources = []
+    stevLevel = 0
+    stevLevelDecay = 0
+    return
+  }
+  fading = true
+  const g = masterGain.gain
+  const now = playCtx.currentTime
+  const dur = ms / 1000
+  try {
+    g.cancelScheduledValues(now)
+    g.setValueAtTime(g.value, now)
+    g.linearRampToValueAtTime(0.0001, now + dur)
+  } catch {}
+  setTimeout(() => {
+    for (const s of activeSources) { try { s.stop() } catch {} }
+    activeSources = []
+    nextPlayTime = 0
+    stevLevel = 0
+    stevLevelDecay = 0
+    try {
+      g.cancelScheduledValues(playCtx.currentTime)
+      g.setValueAtTime(1, playCtx.currentTime)
+    } catch {}
+    fading = false
+  }, ms + 20)
+}
+
+// --- liquid blob visualizer (gemini/gpt-voice vibe) ---
+function startViz() {
+  if (vizRaf) return
+  const loop = (t) => {
+    vizRaf = requestAnimationFrame(loop)
+    // mic level
+    if (micAnalyser && micData) {
+      micAnalyser.getByteTimeDomainData(micData)
+      let sum = 0
+      for (let i = 0; i < micData.length; i++) {
+        const v = (micData[i] - 128) / 128
+        sum += v * v
+      }
+      const rms = Math.sqrt(sum / micData.length)
+      micLevel += (Math.min(1, rms * 5) - micLevel) * 0.28
+    } else {
+      micLevel *= 0.92
+    }
+    // stev level decay
+    stevLevelDecay *= 0.92
+    stevLevel *= 0.88
+    const talk = Math.max(stevLevel, stevLevelDecay)
+    drawViz(t, micLevel, talk, active)
+  }
+  vizRaf = requestAnimationFrame(loop)
+}
+
+function stopVizLoop() {
+  // keep idle animation always on — only reset levels
+  micLevel = 0
+  stevLevel = 0
+  stevLevelDecay = 0
+}
+
+function drawViz(t, mic, talk, isLive) {
+  const w = viz.width, h = viz.height
+  const cx = w / 2, cy = h / 2
+  vizCtx.clearRect(0, 0, w, h)
+
+  const energy = isLive ? Math.max(mic * 0.85, talk) : 0.08
+  const baseR = Math.min(w, h) * (0.28 + energy * 0.12)
+  vizPhase = t * 0.0012
+
+  // soft outer glow rings
+  const rings = isLive ? 3 : 1
+  for (let i = rings; i >= 1; i--) {
+    const pulse = 1 + Math.sin(vizPhase * 2 + i) * 0.02 + energy * 0.15 * i
+    const rr = baseR * (1.15 + i * 0.18) * pulse
+    const g = vizCtx.createRadialGradient(cx, cy, rr * 0.4, cx, cy, rr)
+    const a = (isLive ? 0.14 : 0.06) * (1 - i * 0.2) + energy * 0.08
+    g.addColorStop(0, `rgba(226,139,168,${a})`)
+    g.addColorStop(0.55, `rgba(201,180,224,${a * 0.5})`)
+    g.addColorStop(1, 'rgba(226,139,168,0)')
+    vizCtx.beginPath()
+    vizCtx.arc(cx, cy, rr, 0, Math.PI * 2)
+    vizCtx.fillStyle = g
+    vizCtx.fill()
+  }
+
+  // organic blob path (n points, noise along radius)
+  const N = 64
+  const pts = []
+  for (let i = 0; i < N; i++) {
+    const ang = (i / N) * Math.PI * 2
+    // multi-frequency wobble — more when talking
+    const wob =
+      Math.sin(ang * 3 + vizPhase * 2.1) * (0.04 + energy * 0.08) +
+      Math.sin(ang * 5 - vizPhase * 1.4) * (0.03 + energy * 0.1) +
+      Math.sin(ang * 2 + vizPhase * 0.7) * (0.02 + mic * 0.06) +
+      Math.cos(ang * 7 + vizPhase * 2.8) * (talk * 0.1)
+    const r = baseR * (1 + wob)
+    pts.push([cx + Math.cos(ang) * r, cy + Math.sin(ang) * r])
+  }
+
+  // filled blob with gradient
+  vizCtx.beginPath()
+  // smooth through midpoints
+  const mid = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]
+  let m0 = mid(pts[N - 1], pts[0])
+  vizCtx.moveTo(m0[0], m0[1])
+  for (let i = 0; i < N; i++) {
+    const p = pts[i]
+    const n = pts[(i + 1) % N]
+    const m = mid(p, n)
+    vizCtx.quadraticCurveTo(p[0], p[1], m[0], m[1])
+  }
+  vizCtx.closePath()
+
+  // rotate gradient slowly
+  const gx = cx + Math.cos(vizPhase) * baseR * 0.25
+  const gy = cy + Math.sin(vizPhase * 0.8) * baseR * 0.25
+  const grad = vizCtx.createRadialGradient(
+    gx - baseR * 0.2, gy - baseR * 0.25, baseR * 0.05,
+    cx, cy, baseR * 1.15
+  )
+  // stev talking → more lilac; user talking → more rose
+  const roseBoost = 0.5 + mic * 0.5
+  const lilacBoost = 0.5 + talk * 0.5
+  grad.addColorStop(0, `rgba(255,236,244,1)`)
+  grad.addColorStop(0.28, `rgba(240,184,204,${0.95})`)
+  grad.addColorStop(0.55, `rgba(226,139,168,${0.9 * roseBoost + 0.1})`)
+  grad.addColorStop(0.82, `rgba(201,180,224,${0.85 * lilacBoost + 0.15})`)
+  grad.addColorStop(1, `rgba(168,139,196,0.95)`)
+  vizCtx.fillStyle = grad
+  vizCtx.fill()
+
+  // glossy highlight
+  vizCtx.beginPath()
+  vizCtx.ellipse(cx - baseR * 0.22, cy - baseR * 0.28, baseR * 0.35, baseR * 0.22, -0.5, 0, Math.PI * 2)
+  const hi = vizCtx.createRadialGradient(
+    cx - baseR * 0.22, cy - baseR * 0.28, 0,
+    cx - baseR * 0.22, cy - baseR * 0.28, baseR * 0.4
+  )
+  hi.addColorStop(0, 'rgba(255,255,255,0.55)')
+  hi.addColorStop(1, 'rgba(255,255,255,0)')
+  vizCtx.fillStyle = hi
+  vizCtx.fill()
+
+  // frequency bars ring (subtle, outer) when live
+  if (isLive && energy > 0.02) {
+    const bars = 36
+    for (let i = 0; i < bars; i++) {
+      const ang = (i / bars) * Math.PI * 2 + vizPhase * 0.3
+      // fake spectrum from mic/talk + sin
+      const hgt = (0.15 + Math.abs(Math.sin(ang * 3 + vizPhase * 4)) * 0.5) * energy
+      const inner = baseR * 1.22
+      const outer = inner + hgt * baseR * 0.45
+      const x0 = cx + Math.cos(ang) * inner
+      const y0 = cy + Math.sin(ang) * inner
+      const x1 = cx + Math.cos(ang) * outer
+      const y1 = cy + Math.sin(ang) * outer
+      vizCtx.beginPath()
+      vizCtx.moveTo(x0, y0)
+      vizCtx.lineTo(x1, y1)
+      vizCtx.strokeStyle = talk > mic
+        ? `rgba(168,139,196,${0.25 + energy * 0.4})`
+        : `rgba(226,139,168,${0.25 + energy * 0.4})`
+      vizCtx.lineWidth = 3
+      vizCtx.lineCap = 'round'
+      vizCtx.stroke()
+    }
+  }
+}
+
+function floatTo16BitLE(float32) {
+  const out = new ArrayBuffer(float32.length * 2)
+  const view = new DataView(out)
+  for (let i = 0; i < float32.length; i++) {
+    let s = Math.max(-1, Math.min(1, float32[i]))
+    view.setInt16(i * 2, s < 0 ? s * 0x8000 : s * 0x7fff, true)
+  }
+  return new Uint8Array(out)
+}
+
+function downsample(input, fromRate, toRate) {
+  if (fromRate === toRate) return input
+  const ratio = fromRate / toRate
+  const newLen = Math.floor(input.length / ratio)
+  const result = new Float32Array(newLen)
+  for (let i = 0; i < newLen; i++) {
+    const start = Math.floor(i * ratio)
+    const end = Math.floor((i + 1) * ratio)
+    let sum = 0, n = 0
+    for (let j = start; j < end && j < input.length; j++) { sum += input[j]; n++ }
+    result[i] = n ? sum / n : input[start] || 0
+  }
+  return result
+}
+
+function u8ToBase64(u8) {
+  let s = ''
+  const chunk = 0x8000
+  for (let i = 0; i < u8.length; i += chunk) {
+    s += String.fromCharCode.apply(null, u8.subarray(i, i + chunk))
+  }
+  return btoa(s)
+}
+
+async function startMic() {
+  mediaStream = await navigator.mediaDevices.getUserMedia({
+    audio: {
+      echoCancellation: true,
+      noiseSuppression: true,
+      autoGainControl: true,
+      channelCount: 1,
+    }
+  })
+  captureCtx = new (window.AudioContext || window.webkitAudioContext)()
+  if (captureCtx.state === 'suspended') await captureCtx.resume()
+  const src = captureCtx.createMediaStreamSource(mediaStream)
+
+  // analyser buat visualizer
+  micAnalyser = captureCtx.createAnalyser()
+  micAnalyser.fftSize = 512
+  micAnalyser.smoothingTimeConstant = 0.75
+  micData = new Uint8Array(micAnalyser.fftSize)
+  src.connect(micAnalyser)
+
+  processor = captureCtx.createScriptProcessor(4096, 1, 1)
+  processor.onaudioprocess = (e) => {
+    if (!ws || ws.readyState !== WebSocket.OPEN || !setupDone) return
+    const input = e.inputBuffer.getChannelData(0)
+    const down = downsample(input, captureCtx.sampleRate, IN_RATE)
+    const pcm = floatTo16BitLE(down)
+    ws.send(JSON.stringify({
+      realtimeInput: {
+        audio: { data: u8ToBase64(pcm), mimeType: `audio/pcm;rate=${IN_RATE}` }
+      }
+    }))
+    chunksSent++
+    if (chunksSent === 1) log('sys', `mic ${captureCtx.sampleRate}→${IN_RATE}`)
+  }
+  const mute = captureCtx.createGain()
+  mute.gain.value = 0
+  src.connect(processor)
+  processor.connect(mute)
+  mute.connect(captureCtx.destination)
+}
+
+function stopMic() {
+  try { processor && processor.disconnect() } catch {}
+  processor = null
+  micAnalyser = null
+  micData = null
+  if (captureCtx) { try { captureCtx.close() } catch {} captureCtx = null }
+  if (mediaStream) {
+    mediaStream.getTracks().forEach(t => t.stop())
+    mediaStream = null
+  }
+  chunksSent = 0
+  stopVizLoop()
+}
+
+async function saveMemory(fact) {
+  try {
+    const r = await fetch('/api/memory', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fact })
+    })
+    const j = await r.json()
+    if (j.added) toast('stev nyimpen kenangan baru 💕')
+    log('sys', j.added ? 'inget: ' + fact : 'dup: ' + fact)
+    return j
+  } catch (e) {
+    log('err', 'mem: ' + e.message)
+    return { added: false }
+  }
+}
+
+function handleToolCall(toolCall) {
+  const functionResponses = []
+  for (const fc of toolCall.functionCalls || []) {
+    let result
+    if (fc.name === 'save_memory') {
+      const fact = (fc.args && (fc.args.fact || fc.args.fakta)) || ''
+      saveMemory(fact)
+      result = { ok: true, fact }
+    } else {
+      result = { error: 'unknown tool' }
+    }
+    functionResponses.push({ name: fc.name, id: fc.id, response: { result } })
+  }
+  if (ws?.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({ toolResponse: { functionResponses } }))
+  }
+}
+
+function setCallUI(on) {
+  if (on) {
+    btn.classList.add('on')
+    iconCall.style.display = 'none'
+    iconEnd.style.display = 'block'
+    btnLabel.textContent = 'akhiri'
+    btn.setAttribute('aria-label', 'Akhiri obrolan')
+    orbWrap.classList.add('live')
+    hello.style.display = 'none'
+    tip.innerHTML = 'boleh interrupt kapan aja · stev bakal diem dulu'
+  } else {
+    btn.classList.remove('on')
+    iconCall.style.display = 'block'
+    iconEnd.style.display = 'none'
+    btnLabel.textContent = 'mulai ngobrol'
+    btn.setAttribute('aria-label', 'Mulai ngobrol')
+    orbWrap.classList.remove('live')
+    hello.style.display = ''
+    tip.innerHTML = 'lebih enak pakai <strong>headphone</strong> biar suaranya jelas 🎧'
+  }
+}
+
+function connect() {
+  return new Promise((resolve, reject) => {
+    setupDone = false
+    let settled = false
+    const fail = (msg) => {
+      if (settled) return
+      settled = true
+      log('err', msg)
+      reject(new Error(msg))
+    }
+    const ok = () => {
+      if (settled) return
+      settled = true
+      resolve()
+    }
+
+    log('sys', 'ws connecting')
+    ws = new WebSocket(session.wsUrl)
+    const setupTimer = setTimeout(() => fail('timeout setupComplete'), 15000)
+
+    ws.onopen = () => {
+      log('sys', 'ws open')
+      const setup = {
+        setup: {
+          model: `models/${session.model}`,
+          generationConfig: {
+            responseModalities: ['AUDIO'],
+            speechConfig: {
+              voiceConfig: {
+                prebuiltVoiceConfig: { voiceName: 'Puck' }
+              }
+            }
+          },
+          systemInstruction: {
+            parts: [{ text: session.systemInstruction }]
+          },
+          inputAudioTranscription: {},
+          outputAudioTranscription: {},
+          tools: [{
+            functionDeclarations: [{
+              name: 'save_memory',
+              description: 'Simpan fakta stabil tentang ell ke memori jangka panjang. Hanya info tahan lama, bukan obrolan sesaat.',
+              parameters: {
+                type: 'object',
+                properties: {
+                  fact: { type: 'string', description: 'Fakta singkat satu kalimat' }
+                },
+                required: ['fact']
+              }
+            }]
+          }]
+        }
+      }
+      ws.send(JSON.stringify(setup))
+    }
+
+    ws.onerror = () => fail('websocket error')
+    ws.onclose = (ev) => {
+      clearTimeout(setupTimer)
+      log('sys', `ws close ${ev.code} ${ev.reason || ''}`)
+      if (!settled) fail(`ws closed before setup (${ev.code}) ${ev.reason || ''}`)
+      if (active) hangup(false)
+      else setStatus('obrolan selesai')
+    }
+
+    ws.onmessage = async (ev) => {
+      let msg
+      try {
+        const raw = typeof ev.data === 'string' ? ev.data : await ev.data.text()
+        msg = JSON.parse(raw)
+      } catch (e) {
+        log('err', 'parse: ' + e.message)
+        return
+      }
+
+      if (msg.error) {
+        const m = msg.error.message || JSON.stringify(msg.error)
+        clearTimeout(setupTimer)
+        fail(m)
+        return
+      }
+
+      if (msg.setupComplete !== undefined) {
+        clearTimeout(setupTimer)
+        setupDone = true
+        log('sys', 'setup ok')
+        setStatus('terhubung · bilang halo aja', 'live')
+        ok()
+        try {
+          ws.send(JSON.stringify({
+            realtimeInput: { text: 'halo stev, aku ell. sapa aku singkat ya.' }
+          }))
+        } catch {}
+        return
+      }
+
+      if (msg.toolCall) {
+        handleToolCall(msg.toolCall)
+        return
+      }
+
+      const sc = msg.serverContent
+      if (!sc) return
+
+      if (sc.inputTranscription?.text) addCaption('ell', sc.inputTranscription.text)
+      if (sc.outputTranscription?.text) addCaption('stev', sc.outputTranscription.text)
+
+      if (sc.modelTurn?.parts) {
+        for (const part of sc.modelTurn.parts) {
+          if (part.inlineData?.data) playPcmBase64(part.inlineData.data)
+          if (part.text) addCaption('stev', part.text)
+        }
+      }
+      if (sc.interrupted) {
+        fadeAndStop(FADE_MS)
+        log('sys', 'interrupt fade')
+      }
+    }
+  })
+}
+
+async function call() {
+  try {
+    if (!session) await loadSession()
+    ensurePlayCtx()
+    setStatus('lagi nyambungin…')
+    btn.disabled = true
+    lastUserCap = ''
+    lastStevCap = ''
+    await connect()
+    await startMic()
+    active = true
+    btn.disabled = false
+    setCallUI(true)
+    setStatus('live · ceritain aja', 'live')
+    pill.textContent = 'sedang ngobrol'
+  } catch (e) {
+    console.error(e)
+    const friendly = friendlyError(e.message)
+    setStatus(friendly, 'err')
+    toast(friendly)
+    hangup(false)
+    btn.disabled = false
+  }
+}
+
+function hangup(sendClose = true) {
+  active = false
+  setupDone = false
+  stopMic()
+  fadeAndStop(80)
+  if (ws) {
+    try { if (sendClose && ws.readyState === WebSocket.OPEN) ws.close() } catch {}
+    ws = null
+  }
+  setCallUI(false)
+  btn.disabled = false
+  setStatus('siap kapan aja')
+  pill.textContent = session?.memCount
+    ? `kenal kamu · ${session.memCount} kenangan`
+    : 'siap kenalan'
+}
+
+btn.onclick = () => active ? hangup() : call()
+
+$('dbgToggle').onclick = () => {
+  logEl.classList.toggle('on')
+  $('dbgToggle').textContent = logEl.classList.contains('on') ? 'sembunyiin' : 'detail'
+}
+
+loadSession().catch(e => {
+  pill.textContent = 'belum siap'
+  setStatus(friendlyError(e.message), 'err')
+  log('err', e.message)
+})
+
+// idle blob selalu hidup biar halaman terasa hidup
+startViz()
+</script>
+</body>
+</html>
